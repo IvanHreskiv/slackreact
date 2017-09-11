@@ -7,6 +7,10 @@
   vertical-align: baseline;
 }
 
+.root {
+  height: 100%;
+}
+
 .reset_2, caption, th, td {
   text-align: left;
   font-weight: normal;
@@ -136,6 +140,7 @@ main {
 
 .main {
   height: 100%;
+  position: relative;
 }
 
 .footer {
@@ -349,13 +354,15 @@ main {
 }
 
 .input-box {
-  height: 100%;
-  margin-left: 220px;
+  height: 20px;
+  margin-left: auto;
+  bottom: 7px;
+  position: absolute;
 }
 
 .input-box_text {
   font-size: 0.95rem;
-  width: 90%;
+  width: 750px;
   margin-left: 2%;
   margin-bottom: auto;
   line-height: 1.2rem;
