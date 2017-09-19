@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import ConversationList from './ConversationList';
-import MessageList from './MessageList' 
+import VisibleConversationList from './ConversationList';
+import VisibleMessageList from './MessageList'
 
 class App extends Component {
   render() {
@@ -10,8 +9,8 @@ class App extends Component {
       <div className="root">
         <Header />
         <div className="main">
-          <ConversationList/>
-          <MessageList/>
+          <VisibleConversationList/>
+          <VisibleMessageList/>
         </div>
         <Footer/>
       </div>

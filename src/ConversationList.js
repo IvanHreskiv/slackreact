@@ -1,38 +1,17 @@
 import React, {Component} from 'react';
+import uuid from 'uuid';
+import { connect } from 'react-redux'
 import './App.css';
 
 class ConversationList extends Component {
-  state = {
-    directChannels: [
-      {
-        unread: "10",
-        participant: "Dode1"
-      },
-      {
-        unread: "14",
-        participant: "Dode2"
-      },
-    ],
-    channels: [
-      {
-        unread: "10",
-        channel_name: "Channel1"
-      },
-      {
-        unread: "14",
-        channel_name: "Channel2"
-      },
-    ],
-  };
-
   render() {
     return (
       <div className="listings">
         <ChannelsList
-          channels={this.state.channels}
+          channels={this.props.channels}
         />
         <DirectChannelsList
-          directChannels={this.state.directChannels}
+          directChannels={this.props.directChannels}
         />
       </div>
     );
@@ -116,4 +95,27 @@ class DirectChannel extends Component {
   }
 }
 
-export default ConversationList;
+const mapStateToProps = (state) => {
+  return {
+    directChannels: state.directChannels,
+    channels: state.channels
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sayHello: (msg) => {
+      console.log('Hi Ivan from mapDispatchToProps')
+      dispatch({
+        type: 'UNKNOWN',
+      })
+    }
+  }
+}
+
+const VisibleConversationList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConversationList)
+
+export default VisibleConversationList;

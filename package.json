@@ -9,7 +9,9 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.4",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "uuid": "latest",
+    "moment": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

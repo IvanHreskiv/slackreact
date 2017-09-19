@@ -1,68 +1,25 @@
 import React, {Component} from 'react';
-import {createStore} from 'redux';
+import moment from 'moment';
+import { connect } from 'react-redux'
+import uuid from 'uuid';
 import './App.css';
 
 
-const initialState = {
-    messages: [
-      {
-        message: "Hi, Ivan! It is me",
-        sent_at: "11 AM",
-        sendeR: "Chika"
-      },
-      {
-        message: "Hi, Ivan! It is me second time",
-        sent_at: "11 AM",
-        sender: "Chika"
-      },
-      {
-        message: "Hi, Ivan! It is me third time",
-        sent_at: "11 AM",
-        sender: "Chika"
-      },
-    ],
-  };
-
-const store = createStore(reducer, initialState)
-
-function reducer(state, action) {
-  if (action.type === 'ADD_MESSAGE') {
-    return {
-      messages: state.messages.concat(action.message)
-    };
-  } else {
-    return state;  
-  } 
-}
-
 class MessageList extends Component {
-  componentDidMount() {
-    store.subscribe(() => this.forceUpdate());
-  }
-
-  handleSubmit = (message) => {
-    store.dispatch({
-      type: 'ADD_MESSAGE',
-      message: message,
-    });
-  };
-
   render() {
-    const messages = store.getState().messages;
-
     return (
       <div className="message-history">
-        {messages.map((message) => {
+        {this.props.messages.map((message) => {
           return (
             <Message 
               message={message.message}
-              sent_at={message.sent_at}
+              sentAt={message.sentAt}
               sender={message.sender}
             />
           ); 
         })}
         <MessageInput 
-          onEnterPress={this.handleSubmit}
+          onEnterPress={this.props.handleSubmit}
         />
       </div>
     );
@@ -78,7 +35,7 @@ class Message extends Component {
           {this.props.sender}
         </a>
         <span className="message_timestamp">
-                    {this.props.sent_at}
+                    {this.props.sentAt}
         </span>
         <span className="message_star"></span>
         <span className="message_content">
@@ -92,8 +49,13 @@ class Message extends Component {
 class MessageInput extends Component {
   _handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      this.props.onEnterPress(e.target.value);
-      console.log(e.target.value);
+      const message = {
+        message: e.target.value,
+        sentAt: moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a'),
+        sender: "Chika",
+        id: uuid.v4()
+      }
+      this.props.onEnterPress(message);
       e.target.value = '';
     }
   }
@@ -108,4 +70,30 @@ class MessageInput extends Component {
   }
 }
 
-export default MessageList;
+const getChannelMessages = (channels, id) => {
+  return channels.filter(c => c)
+}
+
+const mapStateToProps = (state) => {
+  return {
+    messages: state.messages
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSubmit: message => {
+      dispatch({
+        type: 'ADD_MESSAGE',
+        message: message,
+      });
+    }
+  }
+}
+
+const VisibleMessageList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MessageList)
+
+export default VisibleMessageList;
