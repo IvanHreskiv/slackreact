@@ -276,7 +276,8 @@ main {
   border-radius: 0.2rem;
   width: 36px;
   height: 36px;
-  background-image: url(http://findicons.com/icon/download/102283/fh02/300/png);
+/*background-image: url(http://findicons.com/icon/download/102283/fh02/300/png);*/
+  background-image: url(favicon.ico);
   background-size: cover;
 }
 

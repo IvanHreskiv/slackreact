@@ -9,6 +9,7 @@ class ConversationList extends Component {
       <div className="listings">
         <ChannelsList
           channels={this.props.channels}
+          handleClick={this.props.handleClick}
         />
         <DirectChannelsList
           directChannels={this.props.directChannels}
@@ -27,7 +28,8 @@ class ChannelsList extends Component {
         <ul className="channel_list">
           {this.props.channels.map((channel) => {
             return (
-              <li className="channel active">
+              <li className="channel active"
+              onClick={() => this.props.handleClick(channel.id)}>
                 <Channel
                   unread={channel.unread}
                   channel_name={channel.channel_name}
@@ -98,16 +100,18 @@ class DirectChannel extends Component {
 const mapStateToProps = (state) => {
   return {
     directChannels: state.directChannels,
-    channels: state.channels
+    channels: state.channels,
+    activeChannel: state.channels.find((c) => c.id === state.activeChannelId)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sayHello: (msg) => {
+    handleClick: (channelId) => {
       console.log('Hi Ivan from mapDispatchToProps')
       dispatch({
-        type: 'UNKNOWN',
+        type: 'CHANGE_ACTIVE_CHANNEL',
+        channelId: channelId
       })
     }
   }
