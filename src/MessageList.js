@@ -75,8 +75,9 @@ const getChannelMessages = (channels, id) => {
 }
 
 const mapStateToProps = (state) => {
+  const activeChannel = state.channels.find((c) => c.id === state.activeChannelId)
   return {
-    messages: state.messages
+    messages: activeChannel.messages
   }
 }
 
@@ -85,7 +86,7 @@ const mapDispatchToProps = (dispatch) => {
     handleSubmit: message => {
       dispatch({
         type: 'ADD_MESSAGE',
-        message: message,
+        message: message
       });
     }
   }
