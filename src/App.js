@@ -2,18 +2,29 @@ import React, {Component} from 'react';
 import './App.css';
 import VisibleConversationList from './ConversationList';
 import VisibleMessageList from './MessageList'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Login from './Login'
+
 
 class App extends Component {
   render() {
     return (
-      <div className="root">
-        <Header />
-        <div className="main">
-          <VisibleConversationList/>
-          <VisibleMessageList/>
-        </div>
-        <Footer/>
-      </div>
+      <Router>
+        <html>
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/' render={props => (
+          <div className="root">
+            <Header />
+            <div className="main">
+              <VisibleConversationList/>
+              <VisibleMessageList/>
+            </div>
+            <Footer/>
+          </div>
+          )}
+          />
+        </html>
+      </Router>
     );
   }
 }
@@ -40,10 +51,19 @@ class Header extends Component {
       <div className="channel-menu">
         <span className="channel-menu_name">
         <span className="channel-menu_prefix">#</span>admin</span>
+        <Link
+          to='/login'
+          activateStyle={{
+            textDecoration: 'none',
+            color: 'black'
+          }}>
+            <span>login</span>
+          </Link>
       </div>
       </div>
     );
   }
 }
 
-export default App;
+
+export default App

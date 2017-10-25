@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 import './index.css';
 import App from './App';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import registerServiceWorker from './registerServiceWorker';
@@ -14,9 +15,7 @@ const initialState = {
         unread: "10",
         participant: "Dode1",
         id: '1-fca2',
-        messages:
-          {
-            message: "Hi, Ivan! It is me",
+        messages: { message: "Hi, Ivan! It is me",
             sentAt: "11 AM",
             sendeR: "Chika",
             id: uuid.v4()
@@ -28,9 +27,7 @@ const initialState = {
         id: uuid.v4(),
       },
     ],
-    channels: [
-      {
-        unread: "10",
+    channels: [ { unread: "10",
         channel_name: "Channel1",
         id: '1-fca2',
           messages: [
